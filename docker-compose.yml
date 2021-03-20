@@ -1,0 +1,36 @@
+version: '3'
+services:
+  nginx_prx:
+    image: nginx:1.18.0-alpine
+    container_name: nginx_prx
+    volumes:
+      - ./conf:/etc/nginx/conf.d:ro
+    ports:
+      - 8080:80
+    depends_on:
+      - nginx01
+      - nginx02
+    networks:
+      - nginx_ntw
+  nginx01:
+    image: nginx:1.18.0-alpine
+    container_name: nginx_01
+    volumes:
+      - ./www/site01:/usr/share/nginx/html:ro
+    ports:
+      - 80
+    networks:
+      - nginx_ntw
+  nginx02:
+    image: nginx:1.18.0-alpine
+    container_name: nginx_02
+    volumes:
+      - ./www/site02:/usr/share/nginx/html:ro
+    ports:
+      - 80
+    networks:
+      - nginx_ntw
+
+networks:
+  nginx_ntw:
+    driver: bridge
