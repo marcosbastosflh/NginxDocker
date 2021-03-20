@@ -2,9 +2,11 @@ version: '3'
 services:
   nginx_prx:
     image: nginx:1.18.0-alpine
+    restart: unless-stopped
     container_name: nginx_prx
     volumes:
       - ./conf:/etc/nginx/conf.d:ro
+      - ./log:/var/log/nginx
     ports:
       - 8080:80
     depends_on:
@@ -14,18 +16,22 @@ services:
       - nginx_ntw
   nginx01:
     image: nginx:1.18.0-alpine
+    restart: unless-stopped
     container_name: nginx_01
     volumes:
-      - ./www/site01:/usr/share/nginx/html:ro
+      - ./www/site01/www:/usr/share/nginx/html:ro
+      - ./www/site01/log:/var/log/nginx
     ports:
       - 80
     networks:
       - nginx_ntw
   nginx02:
     image: nginx:1.18.0-alpine
+    restart: unless-stopped
     container_name: nginx_02
     volumes:
-      - ./www/site02:/usr/share/nginx/html:ro
+      - ./www/site02/www:/usr/share/nginx/html:ro
+      - ./www/site02/log:/var/log/nginx
     ports:
       - 80
     networks:
