@@ -21,6 +21,7 @@ services:
     volumes:
       - ./www/site01/www:/usr/share/nginx/html:ro
       - ./www/site01/log:/var/log/nginx
+      - ./www/site01/conf/nginx.conf:/etc/nginx/nginx.conf:ro
     ports:
       - 80
     networks:
@@ -32,6 +33,7 @@ services:
     volumes:
       - ./www/site02/www:/usr/share/nginx/html:ro
       - ./www/site02/log:/var/log/nginx
+      - ./www/site02/conf/nginx.conf:/etc/nginx/nginx.conf:ro
     ports:
       - 80
     networks:
